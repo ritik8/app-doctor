@@ -89,7 +89,7 @@ const Index = () => {
                   {/*menu */}
                   <div className={isShow ? "my-menu open-sidemenu" : "my-menu"}>
                     <div className="logo d-lg-none mt-3 text-center">
-                      <Link to="/">
+                      <Link to="/home">
                         <img src={Images.Logo} alt="logo" />
                       </Link>
                     </div>
@@ -111,7 +111,7 @@ const Index = () => {
                         <NavLink
                           activeClassName="is-Active"
                           exact
-                          to="/patient/apointments"
+                          to="/patient/appointments"
                         >
                           appointments
                         </NavLink>

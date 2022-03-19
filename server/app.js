@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
 
 
 mongoose.connect(
- "mongodb+srv://16eiacs080:16eiacs080@cluster0.1wbxw.mongodb.net/doctor?retryWrites=true&w=majority",
+ "mongodb+srv://appointment:appointment@cluster0.y6iey.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true },
     (err) => {
         if (!err) {

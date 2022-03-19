@@ -35,7 +35,7 @@ const Index = () => {
       if (response.status === 201) {
         toast.success(response.data.message);
         setLoading(false);
-        history.push("/login");
+        history.push("/");
       }
 
       if (response.status === 208) {

@@ -34,6 +34,7 @@ const GetAppointment = ({ hidemodal, doctor }) => {
   const onSubmit = async (data) => {
     try {
       let appointmentData = data;
+      console.log(data);
       appointmentData.doctorId = doctor;
       appointmentData.patientId = patient._id;
 
@@ -43,9 +44,12 @@ const GetAppointment = ({ hidemodal, doctor }) => {
         appointmentData,
         header
       );
+      console.log("ritik",response,data);
+      
       if (response.status === 201) {
         setLoading(false);
         setSucess(true);
+        console.log("nanawati",response,data);
       }
     } catch (error) {
       if (error) {
@@ -125,7 +129,7 @@ const GetAppointment = ({ hidemodal, doctor }) => {
                         {...register("phone", {
                           required: "Phone number is required",
                           pattern: {
-                            value: /^\(?([0-9]{3})\)?([0-9]{8})$/,
+                            value: /^((\+){0,1}91(\s){0,1}(\-){0,1}(\s){0,1}){0,1}98(\s){0,1}(\-){0,1}(\s){0,1}[1-9]{1}[0-9]{7}$/,
                             message: "Number isn't valid.",
                           },
                         })}
