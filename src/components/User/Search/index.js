@@ -5,8 +5,9 @@ import { Icon } from "react-icons-kit";
 import { ic_search } from "react-icons-kit/md";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-
-const Index = ({ lat, lang }) => {
+import axios from "axios";
+import { apiURL } from "../../../utils/apiURL";
+const Index = ({ setDoctor, setLoading }) => {
   const history = useHistory();
   const {
     register,
@@ -14,9 +15,12 @@ const Index = ({ lat, lang }) => {
     formState: { errors },
   } = useForm();
   const [specialist, setSpecialist] = useState();
+  const [header] = useState({
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+  });
 
   const options = [
-    { value: "Medicine", label: "Medicine" },
+    { value: "Medecine", label: "Medecine" },
     { value: "Psychologist", label: "Psychologist" },
     { value: "Cardiologist", label: "Cardiologist" },
   ];
@@ -33,11 +37,22 @@ const Index = ({ lat, lang }) => {
     //     deases: data.deases,
     //     specialist: specialist
     // }
-    history.push(
-      `/search?lat=${lat}&lang=${lang}&deases=${data.deases}&specialist=${
-        specialist || options[0].value
-      }`
-    );
+     const fetchDoctors = async () => {
+    try {
+      const response = await axios.get(`${apiURL}/patient/doctorlist/${data.city}/${specialist}`,header);
+      console.log(response);
+      setDoctor(response.data);
+      setLoading(false);
+    } catch (error) {
+      if (error) console.log(console.response);
+    }
+  }
+  fetchDoctors();
+    // history.push(
+    //   `/search?city=${data.city}&specialist=${
+    //     specialist || options[0].value
+    //   }`
+    // );
   };
   return (
     <div className="search pt-5 pb-5">
@@ -50,8 +65,8 @@ const Index = ({ lat, lang }) => {
                   <div className="flex-fill">
                     <input
                       type="text"
-                      placeholder="Type Disease name"
-                      {...register("deases", { required: true })}
+                      placeholder="City"
+                      {...register("city", { required: true })}
                       className={
                         errors.deases
                           ? "form-control shadow-none form-control-error"

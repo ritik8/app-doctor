@@ -5,6 +5,7 @@ import DoctorShowComponent from "../Model/DoctorShow/index";
 import { Images } from "../../../utils/Images";
 
 const Index = ({ doctors, loading }) => {
+  const url="http://localhost:4000/uploads/doctor/profiles/";
   const [show, setShow] = useState(false);
   const [doctor, setDoctor] = useState();
   const [staticArr] = useState([...Array(16).keys()]);
@@ -17,7 +18,7 @@ const Index = ({ doctors, loading }) => {
     setShow(true);
     setDoctor(data);
   };
-
+console.log(doctors);
   // Check Loading
   if (loading) {
     return (
@@ -70,7 +71,7 @@ const Index = ({ doctors, loading }) => {
                   >
                     <div className="img-box rounded-circle">
                       <img
-                        src={Images.Doctor}
+                        src={url+doctor.image}
                         className="img-fluid"
                         alt="..."
                       />

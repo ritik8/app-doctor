@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./style.scss";
-import axios from "axios";
-import { apiURL } from "../../utils/apiURL";
+// import axios from "axios";
+// import { apiURL } from "../../utils/apiURL";
 import { Images } from "../../utils/Images";
 
 import NavbarComponent from "../../components/User/Navbar/index";
@@ -15,28 +15,29 @@ const Index = () => {
   const [isLoading, setLoading] = useState(false);
 
   //fetch Doctors
-  const fetchDoctors = async () => {
-    try {
-      const response = await axios.get(`${apiURL}/client/doctors`);
-      setDoctor(response.data.doctor);
-      setLoading(false);
-    } catch (error) {
-      if (error) console.log(console.response);
-    }
-  };
+  // const fetchDoctors = async () => {
+  //   try {
+  //     const response = await axios.get(`${apiURL}/client/doctors`);
+  //     console.log(response);
+  //     setDoctor(response.data.doctor);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     if (error) console.log(console.response);
+  //   }
+  // };
 
   useEffect(() => {
-    const geo = navigator.geolocation;
-    if (!geo) {
-      alert("Geoloacation is not supported");
-      return;
-    }
-    navigator.geolocation.getCurrentPosition(function (position) {
-      setLatitude(position.coords.latitude);
-      setLongitude(position.coords.longitude);
-    });
+    // const geo = navigator.geolocation;
+    // if (!geo) {
+    //   alert("Geoloacation is not supported");
+    //   return;
+    // }
+    // navigator.geolocation.getCurrentPosition(function (position) {
+    //   setLatitude(position.coords.latitude);
+    //   setLongitude(position.coords.longitude);
+    // });
+    console.log("Home");
     setLoading(true);
-    fetchDoctors();
   }, []);
   return (
     <>
@@ -57,11 +58,17 @@ const Index = () => {
         </div>
 
         {/* Nearest or suggested Doctor */}
+     
+
+        <SearchComponent setDoctor={setDoctor} setLoading={setLoading} />
+        <div className="col-12 py-4 py-lg-5 text-center">
+              <h3 className="font-weight-bold mb-0 text-white">
+               {doctor.length !== 0 ? `Found  ${doctor.length} Doctors` : "Search Nearest Doctors"} 
+              </h3>
+            </div>
         <div className="suggested-doctors">
           <DoctorsListComponet doctors={doctor} loading={isLoading} />
         </div>
-
-        <SearchComponent lat={latitude} lang={longitude} />
       </div>
     </>
   );

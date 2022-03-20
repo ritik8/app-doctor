@@ -1,24 +1,30 @@
-const Doctors = require('../../../models/Doctors')
+const Doctors = require('../../../models/Doctor')
 
 const findNearestDoctors = async (req, res, next) => {
-    const { lng, lat } = req.body
+    const { city, special } = req.params
     try {
-        const doctors = await Doctors.find(
-            {
-                location: {
-                    $near: {
-                        $geometry: {
-                            type: "Point",
-                            coordinates: [lng, lat]
-                        },
-                        maxDistance: 10000,
-                        distanceField: 'distance'
-                    }
-                }
-            })
+        const doctors = await Doctors.aggregate([{ 
+            $lookup: {
+             from: 'councils',
+             localField: '_id',
+             foreignField: 'doctor',
+             as: 'councilHour'
+            }
+        
+        
+    }
+            
+        ]
+            );
         console.log("res", doctors);
+        const doc=[];
+        doctors.map((doctor)=>{
+            if(doctor.specialist===special && doctor.location.address.city.toLowerCase()===city.toLowerCase()){
+                doc.push(doctor);
+            }
+        })
 
-        res.send(doctors)
+        res.send(doc)
 
     } catch (error) {
         if (error) {

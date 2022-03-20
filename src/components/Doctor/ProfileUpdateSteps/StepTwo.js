@@ -21,6 +21,7 @@ const StepTwo = ({ responsestep, id }) => {
         passingYear: Date(data.passingYear),
         specialist: data.specialist,
         currentHospital: data.currentHospital,
+        
       };
       const token = `token ${localStorage.getItem("token")}`;
 

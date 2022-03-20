@@ -29,6 +29,7 @@ const Login = () => {
     const role = decode.role;
     const id = decode.id;
     localStorage.setItem("id", id);
+    console.log("Local ",decode.role);
 
     if (role === "super_admin" || role === "admin" || role === "manager") {
       return history.push("/admin");

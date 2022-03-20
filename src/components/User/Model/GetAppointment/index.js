@@ -35,8 +35,11 @@ const GetAppointment = ({ hidemodal, doctor }) => {
     try {
       let appointmentData = data;
       console.log(data);
+      // console.log("ritik",patient._id)
       appointmentData.doctorId = doctor;
       appointmentData.patientId = patient._id;
+
+      
 
       setLoading(true);
       const response = await axios.post(
@@ -44,7 +47,8 @@ const GetAppointment = ({ hidemodal, doctor }) => {
         appointmentData,
         header
       );
-      console.log("ritik",response,data);
+     
+      console.log("ritik",response,data,patient);
       
       if (response.status === 201) {
         setLoading(false);
@@ -224,7 +228,7 @@ const GetAppointment = ({ hidemodal, doctor }) => {
                         type="text"
                         name="bloodPressure"
                         defaultValue={patient ? patient.bloodPressure : null}
-                        {...register("bloodPresssure", {
+                        {...register("bloodPressure", {
                           required: "Blood pressure is required",
                         })}
                         className="form-control shadow-none"
